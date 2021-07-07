@@ -4,8 +4,8 @@ config_path_html = "./testWendang/main_menu.xml"
 
 #合二为一失败了，想要把翻译后的文件直接替换原文件里面要翻译的部分文件
 # def translateBaidu(text, f='en', t='zh'):
-#     appid = '20200220000386357'
-#     secretKey = 'urKEvxTaOBGgs9EmhLp0'
+#     appid = 'yourappid'
+#     secretKey = 'yourpassword'
 #     url_baidu = 'https://api.fanyi.baidu.com/api/trans/vip/translate'
 #     salt = random.randint(32768, 65536)
 #     sign = appid + text + str(salt) + secretKey
