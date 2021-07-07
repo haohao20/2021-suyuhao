@@ -1,0 +1,41 @@
+from lxml import etree
+
+config_path_html = "./testWendang/main_menu.xml"
+
+#合二为一失败了，想要把翻译后的文件直接替换原文件里面要翻译的部分文件
+# def translateBaidu(text, f='en', t='zh'):
+#     appid = '20200220000386357'
+#     secretKey = 'urKEvxTaOBGgs9EmhLp0'
+#     url_baidu = 'https://api.fanyi.baidu.com/api/trans/vip/translate'
+#     salt = random.randint(32768, 65536)
+#     sign = appid + text + str(salt) + secretKey
+#     sign = hashlib.md5(sign.encode()).hexdigest()
+#     url = url_baidu + '?appid=' + appid + '&q=' + urllib.parse.quote(text) + '&from=' + f + '&to=' + t + \
+#           '&salt=' + str(salt) + '&sign=' + sign
+#     response = urllib.request.urlopen(url)
+#     content = response.read().decode('utf-8')
+#     data = json.loads(content)
+#     result = str(data['trans_result'][0]['dst'])
+#     print(result)
+
+
+# 将html转换成_Element对象
+
+def getKeyValue():
+    with open(config_path_html, 'r', encoding='utf-8') as f:
+        content = f.read()  # 限制读入的数据
+        _element = etree.HTML(content)
+    # for i in range(0, 2500):
+        text = _element.xpath("//value[@key='caption']/text()")  # [@key='caption']
+        # 选取所有value元素，且这些元素拥有值为caption的 key属性
+        # try:
+        #     if text != '':
+        #         text1 = translateBaidu(text)
+        # except BaseException as ee:
+        #     print(ee)
+        # i + 1
+    print('result is :', text)
+
+
+if __name__ == "__main__":
+    getKeyValue()
