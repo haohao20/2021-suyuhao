@@ -24,8 +24,8 @@ from text_list import getKeyValue
 
 
 def translateBaidu(text, f='en', t='zh'):
-    appid = '20200220000386357'
-    secretKey = 'urKEvxTaOBGgs9EmhLp0'
+    appid = 'yourappid'
+    secretKey = 'yourpassword'
     url_baidu = 'https://api.fanyi.baidu.com/api/trans/vip/translate'
     salt = random.randint(32768, 65536)
     sign = appid + text + str(salt) + secretKey
