@@ -1,0 +1,106 @@
+# 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
+
+# 统一资源定位符（URL）字符串（寻址方案，网络位置，路径等），
+# 将组件组合回URL字符串，并将“相对URL”转换为绝对URL给出“基本URL”;网页请求
+import hashlib  # 该模块实现了许多不同安全散列和消息摘要算法的通用接口。
+import json  # 用 Python 语言来编码和解码 JSON 对象
+import random  # 方法返回随机生成的一个实数，它在[0,1)范围内
+import time
+# 包括FIPS安全哈希算法SHA1，SHA224，SHA256，SHA384和SHA512（在FIPS 180-2中定义）
+# 以及RSA的MD5算法（在Internet RFC 1321中定义）。
+import urllib
+import urllib.parse  # 用于在组件中解析
+import urllib.request
+
+
+def print_hi(name):
+    # 在下面的代码行中使用断点来调试脚本。
+    print(f'Hi, {name}')  # 按 Ctrl+F8 切换断点。
+
+
+'''调用百度api
+'''
+from text_list import getKeyValue
+
+
+def translateBaidu(text, f='en', t='zh'):
+    appid = '20200220000386357'
+    secretKey = 'urKEvxTaOBGgs9EmhLp0'
+    url_baidu = 'https://api.fanyi.baidu.com/api/trans/vip/translate'
+    salt = random.randint(32768, 65536)
+    sign = appid + text + str(salt) + secretKey
+    sign = hashlib.md5(sign.encode()).hexdigest()
+    url = url_baidu + '?appid=' + appid + '&q=' + urllib.parse.quote(text) + '&from=' + f + '&to=' + t + \
+          '&salt=' + str(salt) + '&sign=' + sign
+    response = urllib.request.urlopen(url)
+    content = response.read().decode('utf-8')
+    data = json.loads(content)
+    result = str(data['trans_result'][0]['dst'])
+    print(result)
+
+
+# 按间距中的绿色按钮以运行脚本。
+if __name__ == '__main__':
+    # text_list = ['hello', 'milk', 'apple', 'windows']
+    text_list = str(getKeyValue)
+    time_baidu = 0
+    time_youdao = 0
+    time_google = 0
+    time_google2 = 0
+    # for i in list(range(1, 11)):
+time1 = time.time()
+for text in text_list:
+    try:
+        translateBaidu(text)
+    except BaseException as e:
+        print(e)
+
+time2 = time.time()
+
+# print('百度翻译第%s次时间：%s' % (i, time2 - time1))
+
+time_baidu += (time2 - time1)
+
+'''有道翻译'''
+# ime1 = time.time()
+#
+# for text in text_list:
+#     translateYoudao(text)
+#
+# time2 = time.time()
+#
+# print('有道翻译第%s次时间：%s' % (i, time2 - time1))
+#
+# time_youdao += (time2 - time1)
+
+'''谷歌翻译'''
+# time1 = time.time()
+#
+# for text in text_list:
+#     25
+#     translateGoogle(text)
+#
+# time2 = time.time()
+#
+# print('谷歌翻译第%s次时间：%s' % (i, time2 - time1))
+#
+# time_google += (time2 - time1)
+
+'''谷歌翻译2'''
+# time1 = time.time()
+#
+# for text in text_list:
+#     translateGoogle2(text)
+#
+# time2 = time.time()
+#
+# print('谷歌2翻译第%s次时间：%s' % (i, time2 - time1))
+#
+# time_google2 += (time2 - time1)
+
+print('百度翻译时间：%s' % (time_baidu / 10))
+
+# print('有道翻译时间：%s' % (time_youdao / 10))
+# print('谷歌翻译时间：%s' % (time_google / 10))
+# print('谷歌2翻译时间：%s' % (time_google2 / 10))
+print_hi('程序结束')
